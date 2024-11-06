@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  CirclesDb:
+    image: "postgres"
+    environment:
+      POSTGRES_DB: circles
+      POSTGRES_USER: lena
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "6432:5432"
