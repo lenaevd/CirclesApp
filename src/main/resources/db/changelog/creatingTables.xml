@@ -25,8 +25,17 @@
             <column name="password" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="age" type="smallint">
+            <column name="gender" type="varchar(100)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="city" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birthday" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bio" type="text">
+                <constraints nullable="true"/>
             </column>
             <column name="imageUrl" type="text">
                 <constraints nullable="true"/>
@@ -46,8 +55,8 @@
             <column name="description" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="place" type="text">
-                <constraints nullable="true"/>
+            <column name="extraInfo" type="text">
+                <constraints nullable="false"/>
             </column>
             <column name="date" type="date">
                 <constraints nullable="true"/>
@@ -55,12 +64,19 @@
             <column name="time" type="time">
                 <constraints nullable="true"/>
             </column>
-            <column name="price" type="money">
-                <constraints nullable="true"/>
-            </column>
             <column name="isActive" type="boolean">
                 <constraints nullable="false"/>
             </column>
+            <column name="maxMembersCount" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="membersCount" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="imageUrl" type="text">
+                <constraints nullable="true"/>
+            </column>
+
         </createTable>
     </changeSet>
 
