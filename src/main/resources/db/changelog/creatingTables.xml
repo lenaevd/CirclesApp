@@ -28,6 +28,9 @@
             <column name="age" type="smallint">
                 <constraints nullable="false"/>
             </column>
+            <column name="imageUrl" type="text">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -54,6 +57,9 @@
             </column>
             <column name="price" type="money">
                 <constraints nullable="true"/>
+            </column>
+            <column name="isActive" type="boolean">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
