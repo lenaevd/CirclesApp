@@ -247,5 +247,34 @@
                 referencedTableName="review"/>
     </changeSet>
 
+    <!--    creating table about users interests, setting foreign keys -->
+    <changeSet id="10" author="lena">
+        <createTable tableName="user_interests">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="user_id"
+                baseTableName="user_interests"
+                constraintName="fk_user_interests_user"
+                referencedColumnNames="id"
+                referencedTableName="user"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="type_id"
+                baseTableName="user_interests"
+                constraintName="fk_user_interests_type"
+                referencedColumnNames="id"
+                referencedTableName="type"/>
+    </changeSet>
+
 </databaseChangeLog>
 
