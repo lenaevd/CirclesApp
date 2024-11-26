@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TypeRepository extends JpaRepository<Type, Integer> {
-    Type findByName(String name);
+    //Type findByName(String name);
 }

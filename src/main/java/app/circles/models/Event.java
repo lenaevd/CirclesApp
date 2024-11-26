@@ -31,13 +31,13 @@ public class Event {
     private int membersCount;
     private String imageUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "event_organizers",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private User organizer;
+    private User organizer;*/
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
@@ -55,10 +55,5 @@ public class Event {
     )
     private List<Type> types = new ArrayList<>();
 
-
-
     //private List<Review> reviews;
-
-
-
 }

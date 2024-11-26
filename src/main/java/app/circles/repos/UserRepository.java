@@ -1,12 +1,12 @@
 package app.circles.repos;
 
-import app.circles.models.Event;
+import app.circles.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, UUID> {
-    //Event findByType(Type type);
+public interface UserRepository extends JpaRepository<User, UUID> {
+    //User findByName(String name);
 }

@@ -39,9 +39,9 @@ public class EventService {
 
     public List<Event> getByTypes(List<Type> types) {
         List<Event> events = new ArrayList<>();
-        for (Type type: types) {
+        /*for (Type type: types) {
             events.add(eventRepo.findByType(type));
-        }
+        }*/
         return events;
     }
 }
