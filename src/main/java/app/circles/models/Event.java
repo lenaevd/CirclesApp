@@ -23,9 +23,7 @@ public class Event {
     private UUID id;
     private String name;
     private String description;
-    private String extraInfo;
-    private LocalDate date;
-    private LocalTime time;
+    private String extraInfo; //TODO: может быть нужен город?
     private boolean isActive;
     private int maxMembersCount;
     private int membersCount;
