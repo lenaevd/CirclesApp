@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createNewEvent(@RequestBody User user) {
+    public ResponseEntity<Void> createUser(@RequestBody User user) {
         userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

@@ -1,6 +1,8 @@
 package app.circles.services;
 
+import app.circles.models.Event;
 import app.circles.models.User;
+import app.circles.repos.EventRepository;
 import app.circles.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,4 +35,5 @@ public class UserService {
     public List<User> getAll() {
         return userRepo.findAll();
     }
+
 }

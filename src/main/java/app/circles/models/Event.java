@@ -54,4 +54,15 @@ public class Event {
     private List<Type> types = new ArrayList<>();
 
     //private List<Review> reviews;
+    public boolean AddUser(User user) {
+        if (membersCount + 1 <= maxMembersCount)
+        {
+            members.add(user);
+            membersCount++;
+
+            return true;
+        }
+
+        return false;
+    }
 }

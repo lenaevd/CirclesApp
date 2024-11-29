@@ -2,10 +2,7 @@ package app.circles.models;
 
 import app.circles.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -14,7 +11,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -56,4 +55,9 @@ public class User {
     private String login;
 
     private String password;
+
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
+    private List<Event> events = new ArrayList<>();
+
+    public void AddEvent(Event event) {events.add(event);}
 }
