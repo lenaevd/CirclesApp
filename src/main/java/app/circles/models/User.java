@@ -1,9 +1,13 @@
 package app.circles.models;
 
+import app.circles.enums.Gender;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,13 +27,31 @@ public class User {
     @GeneratedValue
     private UUID id;
 
+    @NotEmpty(message = "Name can't be empty")
+    @Size(max = 20, min = 3, message = "Wrong size of name provided")
     private String name;
+
+    @NotEmpty(message = "Surname can't be empty")
+    @Size(max = 20, min = 2, message = "Wrong size of surname provided")
     private String surname;
-    private String login;
+
+    @Size(max = 500, message = "Max size of bio is 500 symbols")
+    private String bio;
+
+    @Size(max = 100)
+    private String city;
+
     private String email;
-    private String password;
-    private String gender;
+
+    private Gender gender;
+
     private LocalTime dateOfBirth;
+
     private boolean isActive;
+
     private String imageUrl;
+
+    private String login;
+
+    private String password;
 }
