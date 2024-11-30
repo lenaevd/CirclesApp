@@ -65,4 +65,9 @@ public class Event {
 
         return false;
     }
+
+    public void RemoveUser(User user) {
+        members.remove(user);
+        membersCount--;
+    }
 }

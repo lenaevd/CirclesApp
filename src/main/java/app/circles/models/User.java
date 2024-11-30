@@ -60,4 +60,6 @@ public class User {
     private List<Event> events = new ArrayList<>();
 
     public void AddEvent(Event event) {events.add(event);}
+
+    public void RemoveEvent(Event event) {events.remove(event);}
 }

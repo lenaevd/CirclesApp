@@ -1,9 +1,7 @@
 package app.circles.controllers;
 
-import app.circles.models.User;
-import app.circles.requests.CreateUserEventRequest;
+import app.circles.requests.UserEventRequest;
 import app.circles.services.UserEventService;
-import app.circles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +19,22 @@ public class UsersEventController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createUserEvent(@RequestBody CreateUserEventRequest request) {
-        userEventService.addUserEvent(request.userId, request.eventId);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<Void> createUserEvent(@RequestBody UserEventRequest request) {
+        if (userEventService.addUserEvent(request.userId, request.eventId))
+        {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @DeleteMapping("/remove")
+    public ResponseEntity<Void> removeUserEvent(@RequestBody UserEventRequest request) {
+        if (userEventService.removeUserEvent(request.userId, request.eventId))
+        {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }

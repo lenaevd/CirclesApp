@@ -44,4 +44,22 @@ public class UserEventService {
 
         return false;
     }
+
+    public boolean removeUserEvent(UUID userId, UUID eventId){
+        Optional<User> userOptional = userRepo.findById(userId);
+        Optional<Event> eventOptional = eventRepo.findById(eventId);
+        if (!(userOptional.isPresent() && eventOptional.isPresent())) {
+            return false;
+        }
+
+        User user = userOptional.get();
+        Event event = eventOptional.get();
+
+        event.RemoveUser(user);
+        user.RemoveEvent(event);
+        userRepo.save(user);
+        eventRepo.save(event);
+
+        return true;
+    }
 }

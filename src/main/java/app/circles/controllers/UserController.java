@@ -1,9 +1,6 @@
 package app.circles.controllers;
 
-import app.circles.models.Event;
 import app.circles.models.User;
-import app.circles.services.EventService;
-import app.circles.services.TypeService;
 import app.circles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
