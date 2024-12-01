@@ -1,12 +1,13 @@
 package app.circles.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
@@ -16,17 +17,34 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "event")
+@Table(name = "events")
 public class Event {
     @Id
     @GeneratedValue
     private UUID id;
+
+    @NotEmpty(message = "Name can't be empty")
+    @Size(max = 50, min = 3, message = "Max size of name is 50 symbols")
     private String name;
+
+    @Size(max = 500, min = 3, message = "Max size of description is 500 symbols")
     private String description;
-    private String extraInfo; //TODO: может быть нужен город?
+
+    @Size(max = 100, min = 3, message = "Max size of time and place information is 100 symbols")
+    @Column()
+    private String timeAndPlaceInfo;
+
+    @Size(max = 100)
+    @NotEmpty(message = "City can't be empty")
+    private String city;
+
     private boolean isActive;
+
+    @Digits(integer = 100, fraction = 0, message = "Max number is 100 members")
     private int maxMembersCount;
+
     private int membersCount;
+
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
