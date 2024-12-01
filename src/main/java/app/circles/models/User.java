@@ -1,28 +1,32 @@
 package app.circles.models;
 
 import app.circles.enums.Gender;
+import app.circles.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
+//@Getter
+//@Setter
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Data //new
+@Builder
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private UUID id;
@@ -43,6 +47,7 @@ public class User {
 
     private String email;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -56,10 +61,43 @@ public class User {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
     private List<Event> events = new ArrayList<>();
 
     public void AddEvent(Event event) {events.add(event);}
 
     public void RemoveEvent(Event event) {events.remove(event);}
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return name; //OR MAYBE EMAIL?
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

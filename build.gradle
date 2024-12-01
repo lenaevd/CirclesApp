@@ -50,6 +50,8 @@ dependencies {
 	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
 	// Hibernate Validator (реализация Bean Validation API)
 	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+
+	implementation 'org.springframework.security:spring-security-core'
 }
 
 liquibase {
