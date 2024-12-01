@@ -6,7 +6,7 @@
 
     <!--    creating users table -->
     <changeSet id="1" author="lena">
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -31,13 +31,13 @@
             <column name="city" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="birthday" type="date">
+            <column name="date_of_birth" type="date">
                 <constraints nullable="false"/>
             </column>
             <column name="bio" type="text">
                 <constraints nullable="true"/>
             </column>
-            <column name="imageUrl" type="text">
+            <column name="image_url" type="text">
                 <constraints nullable="true"/>
             </column>
         </createTable>
@@ -45,35 +45,34 @@
 
     <!--    creating events table -->
     <changeSet id="2" author="lena">
-        <createTable tableName="event">
+        <createTable tableName="events">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(250)">
+            <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="extraInfo" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date" type="date">
                 <constraints nullable="true"/>
             </column>
-            <column name="time" type="time">
+            <column name="time_and_place_info" type="varchar(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="isActive" type="boolean">
+
+            <column name="city" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="maxMembersCount" type="smallint">
+            <column name="is_active" type="boolean">
                 <constraints nullable="false"/>
             </column>
-            <column name="membersCount" type="smallint">
+
+            <column name="max_members_count" type="smallint">
                 <constraints nullable="false"/>
             </column>
-            <column name="imageUrl" type="text">
+            <column name="members_count" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="text">
                 <constraints nullable="true"/>
             </column>
 
@@ -82,7 +81,7 @@
 
     <!--    creating types table -->
     <changeSet id="3" author="lena">
-        <createTable tableName="type">
+        <createTable tableName="types">
             <column name="id" type="smallint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -92,30 +91,44 @@
         </createTable>
     </changeSet>
 
-    <!--    creating reviews table and setting key -->
-    <changeSet id="4" author="lena">
-        <createTable tableName="review">
-            <column name="id" type="uuid">
+    <!--    creating roles table -->
+    <changeSet id="11" author="lena">
+        <createTable tableName="roles">
+            <column name="id" type="smallint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="text" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="grade" type="smallint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="user_id" type="uuid">
+            <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addForeignKeyConstraint
-                baseColumnNames="user_id"
-                baseTableName="review"
-                constraintName="fk_review_user"
-                referencedColumnNames="id"
-                referencedTableName="user"/>
     </changeSet>
+
+    <!--    creating reviews table and setting key -->
+
+<!--    <changeSet id="4" author="lena">-->
+<!--        <createTable tableName="review">-->
+<!--            <column name="id" type="uuid">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="text" type="text">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="grade" type="smallint">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="user_id" type="uuid">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
+
+<!--        <addForeignKeyConstraint-->
+<!--                baseColumnNames="user_id"-->
+<!--                baseTableName="review"-->
+<!--                constraintName="fk_review_user"-->
+<!--                referencedColumnNames="id"-->
+<!--                referencedTableName="users"/>-->
+<!--    </changeSet>-->
 
     <!--    creating table connecting types and events, setting foreign keys -->
     <changeSet id="5" author="lena">
@@ -136,45 +149,46 @@
                 baseTableName="event_types"
                 constraintName="fk_event_types_event"
                 referencedColumnNames="id"
-                referencedTableName="event"/>
+                referencedTableName="events"/>
 
         <addForeignKeyConstraint
                 baseColumnNames="type_id"
                 baseTableName="event_types"
                 constraintName="fk_event_types_type"
                 referencedColumnNames="id"
-                referencedTableName="type"/>
+                referencedTableName="types"/>
     </changeSet>
 
 
     <!--    creating table of favorite events, setting foreign keys -->
-    <changeSet id="6" author="lena">
-        <createTable tableName="favorites">
-            <column autoIncrement="true" name="id" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="event_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
-            <column name="user_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
 
-        <addForeignKeyConstraint
-                baseColumnNames="event_id"
-                baseTableName="favorites"
-                constraintName="fk_favorites_event"
-                referencedColumnNames="id"
-                referencedTableName="event"/>
+<!--    <changeSet id="6" author="lena">-->
+<!--        <createTable tableName="favorites">-->
+<!--            <column autoIncrement="true" name="id" type="bigint">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="event_id" type="uuid">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="user_id" type="uuid">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
 
-        <addForeignKeyConstraint
-                baseColumnNames="user_id"
-                baseTableName="favorites"
-                constraintName="fk_favorites_user"
-                referencedColumnNames="id"
-                referencedTableName="user"/>
-    </changeSet>
+<!--        <addForeignKeyConstraint-->
+<!--                baseColumnNames="event_id"-->
+<!--                baseTableName="favorites"-->
+<!--                constraintName="fk_favorites_event"-->
+<!--                referencedColumnNames="id"-->
+<!--                referencedTableName="events"/>-->
+
+<!--        <addForeignKeyConstraint-->
+<!--                baseColumnNames="user_id"-->
+<!--                baseTableName="favorites"-->
+<!--                constraintName="fk_favorites_user"-->
+<!--                referencedColumnNames="id"-->
+<!--                referencedTableName="users"/>-->
+<!--    </changeSet>-->
 
     <!--    creating table of members, setting foreign keys -->
     <changeSet id="7" author="lena">
@@ -195,14 +209,14 @@
                 baseTableName="event_members"
                 constraintName="fk_event_members_event"
                 referencedColumnNames="id"
-                referencedTableName="event"/>
+                referencedTableName="events"/>
 
         <addForeignKeyConstraint
                 baseColumnNames="user_id"
                 baseTableName="event_members"
                 constraintName="fk_event_members_user"
                 referencedColumnNames="id"
-                referencedTableName="user"/>
+                referencedTableName="users"/>
     </changeSet>
 
     <!--    creating table of organizers, setting foreign keys -->
@@ -224,44 +238,45 @@
                 baseTableName="event_organizers"
                 constraintName="fk_event_organizers_event"
                 referencedColumnNames="id"
-                referencedTableName="event"/>
+                referencedTableName="events"/>
 
         <addForeignKeyConstraint
                 baseColumnNames="user_id"
                 baseTableName="event_organizers"
                 constraintName="fk_event_organizers_user"
                 referencedColumnNames="id"
-                referencedTableName="user"/>
+                referencedTableName="users"/>
     </changeSet>
 
     <!--    creating table of reviews, setting foreign keys -->
-    <changeSet id="9" author="lena">
-        <createTable tableName="event_reviews">
-            <column autoIncrement="true" name="id" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="event_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
-            <column name="review_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
 
-        <addForeignKeyConstraint
-                baseColumnNames="event_id"
-                baseTableName="event_reviews"
-                constraintName="fk_event_reviews_event"
-                referencedColumnNames="id"
-                referencedTableName="event"/>
+<!--    <changeSet id="9" author="lena">-->
+<!--        <createTable tableName="event_reviews">-->
+<!--            <column autoIncrement="true" name="id" type="bigint">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="event_id" type="uuid">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="review_id" type="uuid">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
 
-        <addForeignKeyConstraint
-                baseColumnNames="review_id"
-                baseTableName="event_reviews"
-                constraintName="fk_event_reviews_review"
-                referencedColumnNames="id"
-                referencedTableName="review"/>
-    </changeSet>
+<!--        <addForeignKeyConstraint-->
+<!--                baseColumnNames="event_id"-->
+<!--                baseTableName="event_reviews"-->
+<!--                constraintName="fk_event_reviews_event"-->
+<!--                referencedColumnNames="id"-->
+<!--                referencedTableName="events"/>-->
+
+<!--        <addForeignKeyConstraint-->
+<!--                baseColumnNames="review_id"-->
+<!--                baseTableName="event_reviews"-->
+<!--                constraintName="fk_event_reviews_review"-->
+<!--                referencedColumnNames="id"-->
+<!--                referencedTableName="reviews"/>-->
+<!--    </changeSet>-->
 
     <!--    creating table about users interests, setting foreign keys -->
     <changeSet id="10" author="lena">
@@ -282,14 +297,14 @@
                 baseTableName="user_interests"
                 constraintName="fk_user_interests_user"
                 referencedColumnNames="id"
-                referencedTableName="user"/>
+                referencedTableName="users"/>
 
         <addForeignKeyConstraint
                 baseColumnNames="type_id"
                 baseTableName="user_interests"
                 constraintName="fk_user_interests_type"
                 referencedColumnNames="id"
-                referencedTableName="type"/>
+                referencedTableName="types"/>
     </changeSet>
 
 </databaseChangeLog>
