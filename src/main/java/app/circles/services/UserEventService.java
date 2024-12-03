@@ -33,7 +33,7 @@ public class UserEventService {
 
         User user = userOptional.get();
         Event event = eventOptional.get();
-        if (event.AddUser(user))
+        if (event.AddMember(user))
         {
             user.AddEvent(event);
             userRepo.save(user);
@@ -55,7 +55,7 @@ public class UserEventService {
         User user = userOptional.get();
         Event event = eventOptional.get();
 
-        event.RemoveUser(user);
+        event.RemoveMember(user);
         user.RemoveEvent(event);
         userRepo.save(user);
         eventRepo.save(event);

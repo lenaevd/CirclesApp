@@ -31,7 +31,6 @@ public class Event {
     private String description;
 
     @Size(max = 100, min = 3, message = "Max size of time and place information is 100 symbols")
-    @Column()
     private String timeAndPlaceInfo;
 
     @Size(max = 100)
@@ -72,7 +71,7 @@ public class Event {
     private List<Type> types = new ArrayList<>();
 
     //private List<Review> reviews;
-    public boolean AddUser(User user) {
+    public boolean AddMember(User user) {
         if (membersCount + 1 <= maxMembersCount)
         {
             members.add(user);
@@ -84,7 +83,7 @@ public class Event {
         return false;
     }
 
-    public void RemoveUser(User user) {
+    public void RemoveMember(User user) {
         members.remove(user);
         membersCount--;
     }
