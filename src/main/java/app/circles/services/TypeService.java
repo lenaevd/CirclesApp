@@ -18,10 +18,6 @@ public class TypeService {
     }
 
     public List<Type> findTypesByNamesList(List<String> names) {
-        List<Type> types = new ArrayList<>();
-        /*for (String name: names) {
-            types.add(typeRepo.findByName(name));
-        }*/
-        return types;
+        return typeRepo.findByNameIn(names);
     }
 }
