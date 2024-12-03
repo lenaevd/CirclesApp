@@ -1,8 +1,10 @@
 package app.circles.controllers;
 
+import app.circles.mappers.CreateEventReqToEvent;
 import app.circles.models.Event;
 import app.circles.models.Type;
-import app.circles.requests.getEventsByTypeRequest;
+import app.circles.requests.CreateEventRequest;
+import app.circles.requests.GetEventsByTypeRequest;
 import app.circles.services.EventService;
 import app.circles.services.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +17,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 /*Мероприятия(в первую очередь):
-        + создать
-        - редактировать (тут надо решить патч или пут запрос) думаю патч все-таки
+
+        редактировать (тут надо решить патч или пут запрос) думаю патч все-таки
 
         PUT method sets up the entity with the exact information provided in the request.
         In this way, the request must contain the entire entity, not only specific fields.
 
         the PATCH method allows the data update of particular fields of an entity.
-
-        + удалить (если добавляем свойство IsActive то можно поменять его на false когда мероприятие заканчивается)
-        пока сделала просто удалить вообще из бд, надо доделать активность/неактивность
-        +- Получить все (тут фильтр думаю нужен, можно включить категорию и мб ещё по времени ограничения)
-        + получить одно по айди
-
  */
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -35,26 +31,57 @@ import java.util.UUID;
 @RequestMapping("/api/events")
 public class EventController {
     private final EventService eventService;
-    private TypeService typeService;
+    private final TypeService typeService;
+    private final CreateEventReqToEvent mapper;
 
     @Autowired
-    public EventController(EventService service, TypeService typeService) {
+    public EventController(EventService service, TypeService typeService, CreateEventReqToEvent mapper) {
         this.eventService = service;
         this.typeService = typeService;
+        this.mapper = mapper;
     }
 
+    /**
+     * создать новый ивент
+     * @param request информация об ивенте от пользователя
+     */
     @PostMapping("/new")
-    public ResponseEntity<Void> createNewEvent(@RequestBody Event event) {
-        eventService.save(event);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<Void> createNewEvent(@RequestBody CreateEventRequest request) {
+        Event event = mapper.Map(request);
+        List<Type> types = typeService.findTypesByNamesList(request.typesNames);
+        if (eventService.createEvent(event, types, request.organizerId)) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
+    /**
+     * удалить ивент с концами
+     * @param eventId id ивента
+     */
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteEvent(@RequestParam UUID eventId) {
         eventService.deleteEventById(eventId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    /**
+     * завершить или сделать активным ивент
+     * @param eventId id ивента
+     * @param isActive true для активных, false для завершенных
+     */
+    @PatchMapping("/changeActive")
+    public ResponseEntity<Void> changeActive(@RequestParam UUID eventId, @RequestParam boolean isActive) {
+        eventService.changeActive(eventId, isActive);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    /**
+     * получить ивент по id
+     * @param eventId id ивента
+     * @return ивент
+     */
     @GetMapping("/getById")
     public ResponseEntity<Event> getEventById(@RequestParam UUID eventId) {
         Optional<Event> event = eventService.getById(eventId);
@@ -65,17 +92,47 @@ public class EventController {
         }
     }
 
-    @GetMapping
+    /**
+     * получить все ивенты
+     * @return список ивентов
+     */
+    @GetMapping("/all")
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAll();
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/getByTypes")
-    public ResponseEntity<List<Event>> getEventsByTypes(@RequestBody getEventsByTypeRequest typesRequest) {
-        List<Type> types = typeService.findTypesByNamesList(typesRequest.getTypesNames());
+    /**
+     * получить все активные ивенты
+     * @return список ивентов
+     */
+    @GetMapping()
+    public ResponseEntity<List<Event>> getActiveEvents() {
+        List<Event> events = eventService.getActive();
+        return ResponseEntity.ok(events);
+    }
 
-        List<Event> events = eventService.getByTypes(types);
+    /**
+     * получить активные ивенты по типу
+     * @param typesRequest список названий типов
+     * @return список ивентов
+     */
+    @PostMapping("/types")
+    public ResponseEntity<List<Event>> getActiveEventsByTypes(@RequestBody GetEventsByTypeRequest typesRequest) {
+        List<Type> types = typeService.findTypesByNamesList(typesRequest.typesNames);
+        List<Event> events = eventService.getActiveByTypes(types);
+        return ResponseEntity.ok(events);
+    }
+
+    /**
+     * получить все ивенты по типу
+     * @param typesRequest список названий типов
+     * @return список ивентов
+     */
+    @PostMapping("/all/types")
+    public ResponseEntity<List<Event>> getAllEventsByTypes(@RequestBody GetEventsByTypeRequest typesRequest) {
+        List<Type> types = typeService.findTypesByNamesList(typesRequest.typesNames);
+        List<Event> events = eventService.getAllByTypes(types);
         return ResponseEntity.ok(events);
     }
 
