@@ -35,12 +35,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	/*implementation "org.postgresql:postgresql:42.3.8"
-	liquibaseRuntime "org.postgresql:postgresql:42.3.8"
-
-	runtimeOnly 'org.liquibase:liquibase-core'
-	liquibaseRuntime 'org.liquibase:liquibase-core:4.10.0'*/
-
 	runtimeOnly 'org.liquibase:liquibase-core'
 	liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.1.1'
 	liquibaseRuntime 'info.picocli:picocli:4.7.5'
@@ -51,7 +45,13 @@ dependencies {
 	// Hibernate Validator (реализация Bean Validation API)
 	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 
-	implementation 'org.springframework.security:spring-security-core'
+	implementation 'org.springframework.security:spring-security-core:'
+	implementation 'org.springframework.security:spring-security-web:6.1.4'
+	implementation 'org.springframework.security:spring-security-config:6.1.4'
+
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 }
 
 liquibase {
