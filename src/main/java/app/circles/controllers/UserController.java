@@ -47,4 +47,10 @@ public class UserController {
         List<User> users = userService.getAll();
         return ResponseEntity.ok(users);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<User> editUser(@RequestBody User user) {
+        //User user = userService.edit(user);
+        return ResponseEntity.ok(user);
+    }
 }

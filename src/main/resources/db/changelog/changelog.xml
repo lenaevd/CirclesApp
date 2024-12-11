@@ -6,5 +6,4 @@
 
         <include file="/creatingTables.xml" relativeToChangelogFile="true"/>
     <include file="/addingTypesOfEvents.xml" relativeToChangelogFile="true"/>
-    <include file="/addingRoles.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

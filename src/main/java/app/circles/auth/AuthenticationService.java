@@ -31,14 +31,14 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .name(request.getName())
-                .surname(request.getSurname())
+                .name("")
+                .surname("")
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .city("")
                 .bio("")
-                .login("") //нахуй не нужон
+                .login(request.getLogin())
                 .dateOfBirth(LocalDate.of(2000, 01, 01))
                 .gender(Gender.Neutral)
                 .isActive(true)

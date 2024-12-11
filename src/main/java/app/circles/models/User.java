@@ -2,6 +2,7 @@ package app.circles.models;
 
 import app.circles.enums.Gender;
 
+import app.circles.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -61,8 +62,7 @@ public class User implements UserDetails {
 
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
@@ -74,13 +74,13 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getName()));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    @Override
+    /*@Override
     public String getPassword() {
         return null;
-    }
+    }*/
 
     @Override
     public String getUsername() {
