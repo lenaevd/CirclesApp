@@ -4,6 +4,7 @@ import app.circles.models.Event;
 import app.circles.models.User;
 import app.circles.repos.EventRepository;
 import app.circles.repos.UserRepository;
+import app.circles.requests.EditUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,27 @@ public class UserService {
 
     public void save(User user) {
         userRepo.save(user);
+    }
+
+    public User update(User user, EditUserRequest request)
+    {
+        try{
+            user.setName(request.name);
+            user.setSurname(request.surname);
+            user.setBio(request.bio);
+            user.setCity(request.city);
+            user.setGender(request.gender);
+            user.setDateOfBirth(request.dateOfBirth);
+            user.setImageUrl(request.imageUrl);
+
+            save(user);
+            return user;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void delete(UUID userId) {

@@ -1,8 +1,10 @@
 package app.circles.controllers;
 
 import app.circles.models.User;
+import app.circles.requests.EditUserRequest;
 import app.circles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +51,20 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<User> editUser(@RequestBody User user) {
-        //User user = userService.edit(user);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<User> editUser(@RequestParam UUID userId, @RequestBody EditUserRequest request) {
+        Optional<User> user = userService.getById(userId);
+        if (user.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+        User response = userService.update(user.get(), request);
+
+        if (response == null)
+        {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(response);
+        }
     }
 }

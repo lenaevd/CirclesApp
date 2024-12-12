@@ -50,7 +50,7 @@ public class EventController {
         Event event = mapper.Map(request);
         List<Type> types = typeService.findTypesByNamesList(request.typesNames);
         if (eventService.createEvent(event, types, request.organizerId)) {
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).build(); //TODO: ВОЗМОЖНО СТОИТ ВЕРНУТЬ АЙДИ ИЛИ МОДЕЛЬ
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -84,7 +84,7 @@ public class EventController {
      */
     @GetMapping("/getById")
     public ResponseEntity<Event> getEventById(@RequestParam UUID eventId) {
-        Optional<Event> event = eventService.getById(eventId);
+        Optional<Event> event = eventService.getById(eventId); //TODO: МЫ ТУТ СЛИШКОМ МНОГО ИНФОРМАЦИИ О ЮЗЕРЕ ОТДАЕМ
         if (event.isPresent()) {
             return ResponseEntity.ok(event.get());
         } else {

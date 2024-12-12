@@ -32,12 +32,8 @@ public class User implements UserDetails {
     @GeneratedValue
     private UUID id;
 
-    @NotEmpty(message = "Name can't be empty")
-    @Size(max = 20, min = 3, message = "Wrong size of name provided")
     private String name;
 
-    @NotEmpty(message = "Surname can't be empty")
-    @Size(max = 20, min = 2, message = "Wrong size of surname provided")
     private String surname;
 
     @Size(max = 500, message = "Max size of bio is 500 symbols")
@@ -84,7 +80,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email; //OR MAYBE EMAIL?
+        return email; //TODO: почему я решила возвращать тут эмейл?...
     }
 
     @Override
