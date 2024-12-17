@@ -2,6 +2,7 @@ package app.circles.controllers;
 
 import app.circles.models.User;
 import app.circles.requests.EditUserRequest;
+import app.circles.responses.GetUserResponse;
 import app.circles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,30 +30,30 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<User> getUserById(@RequestParam UUID userId) {
-        Optional<User> user = userService.getById(userId);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
+    public ResponseEntity<GetUserResponse> getUserById(@RequestParam UUID userId) {
+        GetUserResponse user = userService.getById(userId);
+        if (user == null) {
             return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(user);
         }
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAll();
+    public ResponseEntity<List<GetUserResponse>> getAllUsers() {
+        List<GetUserResponse> users = userService.getAll();
         return ResponseEntity.ok(users);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<User> editUser(@RequestParam UUID userId, @RequestBody EditUserRequest request) {
-        Optional<User> user = userService.getById(userId);
+    public ResponseEntity<GetUserResponse> editUser(@RequestParam UUID userId, @RequestBody EditUserRequest request) {
+        Optional<User> user = userService.getUser(userId);
         if (user.isEmpty())
         {
             return ResponseEntity.notFound().build();
         }
 
-        User response = userService.update(user.get(), request);
+        GetUserResponse response = userService.update(user.get(), request);
 
         if (response == null)
         {
