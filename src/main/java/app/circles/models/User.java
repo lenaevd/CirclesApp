@@ -5,7 +5,6 @@ import app.circles.enums.Gender;
 import app.circles.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,13 +17,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-//@Getter
-//@Setter
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Data //new
+@Data
 @Builder
 @Table(name = "users")
 public class User implements UserDetails {
@@ -73,14 +70,9 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    /*@Override
-    public String getPassword() {
-        return null;
-    }*/
-
     @Override
     public String getUsername() {
-        return email; //TODO: почему я решила возвращать тут эмейл?...
+        return email;
     }
 
     @Override

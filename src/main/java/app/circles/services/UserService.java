@@ -1,8 +1,6 @@
 package app.circles.services;
 
-import app.circles.models.Event;
 import app.circles.models.User;
-import app.circles.repos.EventRepository;
 import app.circles.repos.UserRepository;
 import app.circles.requests.EditUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
