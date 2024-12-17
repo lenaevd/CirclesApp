@@ -17,16 +17,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 /*Мероприятия(в первую очередь):
-
-        редактировать (тут надо решить патч или пут запрос) думаю патч все-таки
-
         PUT method sets up the entity with the exact information provided in the request.
         In this way, the request must contain the entire entity, not only specific fields.
 
         the PATCH method allows the data update of particular fields of an entity.
  */
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/events")
 public class EventController {

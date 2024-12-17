@@ -4,7 +4,6 @@ import app.circles.models.User;
 import app.circles.requests.EditUserRequest;
 import app.circles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/*
-* Пока без удаления
-* */
-
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
