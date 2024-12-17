@@ -21,6 +21,8 @@ import java.util.UUID;
         In this way, the request must contain the entire entity, not only specific fields.
 
         the PATCH method allows the data update of particular fields of an entity.
+
+        ой блин а нам нужно поиск сделать??
  */
 
 @RestController

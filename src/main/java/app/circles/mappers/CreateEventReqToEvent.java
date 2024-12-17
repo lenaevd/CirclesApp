@@ -11,8 +11,7 @@ public class CreateEventReqToEvent {
         event.setName(request.name);
         event.setDescription(request.description);
         event.setTimeAndPlaceInfo(request.timeAndPlaceInfo);
-        event.setCity(request.city);
-        event.setActive(request.isActive);
+        event.setChatLink(request.chatLink);
         event.setMaxMembersCount(request.maxMembersCount);
         event.setMembersCount(1);
         event.setImageUrl(request.imageUrl);

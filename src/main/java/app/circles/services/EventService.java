@@ -43,7 +43,8 @@ public class EventService {
 
     public boolean createEvent(Event event, List<Type> types, UUID organizerId) {
         Optional<User> user = userRepo.findById(organizerId);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
+            event.setActive(true);
             event.setOrganizer(user.get());
             event.setTypes(types);
             eventRepo.save(event);
@@ -70,6 +71,6 @@ public class EventService {
     }
 
     public List<Event> getActiveByTypes(List<Type> types) {
-        return eventRepo.findByIsActiveAndTypesIn(true,types);
+        return eventRepo.findByIsActiveAndTypesIn(true, types);
     }
 }

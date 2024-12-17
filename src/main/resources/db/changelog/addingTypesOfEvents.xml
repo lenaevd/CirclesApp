@@ -6,42 +6,42 @@
 
     <changeSet id="insert-types" author="lena">
         <insert tableName="types">
-            <column name="name" value="творчество"/>
+            <column name="name" value="ТВОРЧЕСТВО"/>
             <column name="id" value="1"/>
         </insert>
 
         <insert tableName="types">
-            <column name="name" value="спорт"/>
+            <column name="name" value="СПОРТ"/>
             <column name="id" value="2"/>
         </insert>
 
         <insert tableName="types">
-            <column name="name" value="шоу"/>
+            <column name="name" value="ШОУ"/>
             <column name="id" value="3"/>
         </insert>
 
         <insert tableName="types">
-            <column name="name" value="природа"/>
+            <column name="name" value="ПРИРОДА"/>
             <column name="id" value="4"/>
         </insert>
 
         <insert tableName="types">
-            <column name="name" value="игры"/>
+            <column name="name" value="ИГРЫ"/>
             <column name="id" value="5"/>
         </insert>
 
         <insert tableName="types">
-            <column name="name" value="кино"/>
+            <column name="name" value="КИНО"/>
             <column name="id" value="6"/>
         </insert>
 
         <insert tableName="types">
-            <column name="name" value="настольные игры"/>
+            <column name="name" value="НАСТОЛЬНЫЕ ИГРЫ"/>
             <column name="id" value="7"/>
         </insert>
 
         <insert tableName="types">
-            <column name="name" value="общение"/>
+            <column name="name" value="ОБЩЕНИЕ"/>
             <column name="id" value="8"/>
         </insert>
 

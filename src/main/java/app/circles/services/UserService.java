@@ -1,6 +1,7 @@
 package app.circles.services;
 
 import app.circles.mappers.UserToGetUserResponseMapper;
+import app.circles.models.Type;
 import app.circles.models.User;
 import app.circles.repos.UserRepository;
 import app.circles.requests.EditUserRequest;
@@ -30,7 +31,7 @@ public class UserService {
         userRepo.save(user);
     }
 
-    public GetUserResponse update(User user, EditUserRequest request)
+    public GetUserResponse update(User user, EditUserRequest request, List<Type> interests)
     {
         try{
             user.setName(request.name);
@@ -40,6 +41,7 @@ public class UserService {
             user.setGender(request.gender);
             user.setDateOfBirth(request.dateOfBirth);
             user.setImageUrl(request.imageUrl);
+            user.setInterests(interests);
 
             save(user);
             return mapper.Map(user);

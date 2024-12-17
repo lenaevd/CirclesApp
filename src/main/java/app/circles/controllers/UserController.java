@@ -1,8 +1,10 @@
 package app.circles.controllers;
 
+import app.circles.models.Type;
 import app.circles.models.User;
 import app.circles.requests.EditUserRequest;
 import app.circles.responses.GetUserResponse;
+import app.circles.services.TypeService;
 import app.circles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,12 @@ import java.util.UUID;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
+    private final TypeService typeService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, TypeService typeService) {
         this.userService = userService;
+        this.typeService = typeService;
     }
 
     @PostMapping("/create")
@@ -53,7 +57,8 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        GetUserResponse response = userService.update(user.get(), request);
+        List<Type> interests = typeService.findTypesByNamesList(request.interestsNames);
+        GetUserResponse response = userService.update(user.get(), request, interests);
 
         if (response == null)
         {
