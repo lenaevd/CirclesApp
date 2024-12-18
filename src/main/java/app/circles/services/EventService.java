@@ -11,6 +11,7 @@ import app.circles.responses.GetEventResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -68,8 +69,15 @@ public class EventService {
         }
     }
 
-    public List<Event> getAll() {
-        return eventRepo.findAll();
+    public List<GetEventResponse> getAll() {
+        List<Event> events =  eventRepo.findAll();
+        List<GetEventResponse> mappedEvents = new ArrayList<>();
+
+        for (var event:
+                events) {
+            mappedEvents.add(mapper.Map(event));
+        }
+        return  mappedEvents;
     }
 
     public List<Event> getActive() {

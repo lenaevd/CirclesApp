@@ -96,8 +96,8 @@ public class EventController {
      * @return список ивентов
      */
     @GetMapping("/all")
-    public ResponseEntity<List<Event>> getAllEvents() {
-        List<Event> events = eventService.getAll();
+    public ResponseEntity<List<GetEventResponse>> getAllEvents() {
+        List<GetEventResponse> events = eventService.getAll();
         return ResponseEntity.ok(events);
     }
 
