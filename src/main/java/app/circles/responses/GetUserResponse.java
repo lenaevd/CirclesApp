@@ -27,7 +27,7 @@ public class GetUserResponse {
 
     public Gender gender;
 
-    public LocalDate dateOfBirth;
+    public String dateOfBirth;
 
     public boolean isActive;
 

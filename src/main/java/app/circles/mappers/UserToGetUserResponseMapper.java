@@ -15,15 +15,15 @@ public class UserToGetUserResponseMapper {
         }
 
         return new GetUserResponse(
-                user.getId(),
-                user.getName(),
-                user.getSurname(),
-                user.getBio(),
-                user.getCity(),
-                user.getEmail(),
-                user.getGender(),
-                user.getDateOfBirth(),
-                user.isActive(),
-                user.getImageUrl());
+            user.getId(),
+            user.getName(),
+            user.getSurname(),
+            user.getBio(),
+            user.getCity(),
+            user.getEmail(),
+            user.getGender(),
+            user.getDateOfBirth().toString(),
+            user.isActive(),
+            user.getImageUrl());
     }
 }
