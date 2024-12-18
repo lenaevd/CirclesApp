@@ -59,12 +59,10 @@ public class UserService {
 
     public GetUserResponse getById(UUID userId) {
         Optional<User> user = userRepo.findById(userId);
-
         if (user.isEmpty())
         {
             return null;
         }
-
         return mapper.Map(user.get());
     }
 

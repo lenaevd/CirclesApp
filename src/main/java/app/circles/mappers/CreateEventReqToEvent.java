@@ -13,7 +13,7 @@ public class CreateEventReqToEvent {
         event.setTimeAndPlaceInfo(request.timeAndPlaceInfo);
         event.setChatLink(request.chatLink);
         event.setMaxMembersCount(request.maxMembersCount);
-        event.setMembersCount(1);
+        event.setMembersCount(0);
         event.setImageUrl(request.imageUrl);
         // + organizer, types, members
         return event;

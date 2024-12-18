@@ -5,6 +5,7 @@ import app.circles.models.Event;
 import app.circles.models.Type;
 import app.circles.requests.CreateEventRequest;
 import app.circles.requests.GetEventsByTypeRequest;
+import app.circles.responses.GetEventResponse;
 import app.circles.services.EventService;
 import app.circles.services.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /*Мероприятия(в первую очередь):
@@ -81,12 +81,13 @@ public class EventController {
      * @return ивент
      */
     @GetMapping("/getById")
-    public ResponseEntity<Event> getEventById(@RequestParam UUID eventId) {
-        Optional<Event> event = eventService.getById(eventId); //TODO: МЫ ТУТ СЛИШКОМ МНОГО ИНФОРМАЦИИ О ЮЗЕРЕ ОТДАЕМ
-        if (event.isPresent()) {
-            return ResponseEntity.ok(event.get());
-        } else {
+    public ResponseEntity<GetEventResponse> getEventById(@RequestParam UUID eventId) {
+        GetEventResponse eventResponce = eventService.getById(eventId); //TODO: МЫ ТУТ СЛИШКОМ МНОГО ИНФОРМАЦИИ О ЮЗЕРЕ ОТДАЕМ
+        if (eventResponce == null) {
             return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(eventResponce);
+
         }
     }
 
