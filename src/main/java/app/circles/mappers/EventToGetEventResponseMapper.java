@@ -26,7 +26,8 @@ public class EventToGetEventResponseMapper {
                 event.getChatLink(),
                 event.getImageUrl(),
                 event.getOrganizer().getId(),
-                createMemberInfo(event.getMembers())
+                createMemberInfo(event.getMembers()),
+                event.getTypes()
         );
     }
 

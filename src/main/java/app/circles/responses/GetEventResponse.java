@@ -1,5 +1,6 @@
 package app.circles.responses;
 
+import app.circles.models.Type;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public class GetEventResponse {
     public String imageUrl;
     public UUID organizerId;
     public List<MemberInfo> members;
+    public List<Type> types;
 }

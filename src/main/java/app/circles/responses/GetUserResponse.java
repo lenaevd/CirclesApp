@@ -36,4 +36,5 @@ public class GetUserResponse {
 
     public List<String> interestNames;
 
+    public List<GetEventResponse> usersEvents;
 }
