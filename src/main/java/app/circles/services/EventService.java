@@ -84,8 +84,15 @@ public class EventService {
         return eventRepo.findByIsActive(true);
     }
 
-    public List<Event> getAllByTypes(List<Type> types) {
-        return eventRepo.findAllByTypesIn(types);
+    public List<GetEventResponse> getAllByTypes(List<Type> types) {
+        List<Event> events =  eventRepo.findAllByTypesIn(types);
+        List<GetEventResponse> mappedEvents = new ArrayList<>();
+
+        for (var event:
+                events) {
+            mappedEvents.add(mapper.Map(event));
+        }
+        return  mappedEvents;
     }
 
     public List<Event> getActiveByTypes(List<Type> types) {

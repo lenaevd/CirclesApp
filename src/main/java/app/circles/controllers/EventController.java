@@ -129,9 +129,9 @@ public class EventController {
      * @return список ивентов
      */
     @PostMapping("/all/types")
-    public ResponseEntity<List<Event>> getAllEventsByTypes(@RequestBody GetEventsByTypeRequest typesRequest) {
+    public ResponseEntity<List<GetEventResponse>> getAllEventsByTypes(@RequestBody GetEventsByTypeRequest typesRequest) {
         List<Type> types = typeService.findTypesByNamesList(typesRequest.typesNames);
-        List<Event> events = eventService.getAllByTypes(types);
+        List<GetEventResponse> events = eventService.getAllByTypes(types);
         return ResponseEntity.ok(events);
     }
 
