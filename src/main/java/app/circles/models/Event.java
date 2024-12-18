@@ -33,16 +33,14 @@ public class Event {
     @Size(max = 100, min = 3, message = "Max size of time and place information is 100 symbols")
     private String timeAndPlaceInfo;
 
-    @Size(max = 100)
-    @NotEmpty(message = "City can't be empty")
-    private String city;
-
     private boolean isActive;
 
     @Digits(integer = 100, fraction = 0, message = "Max number is 100 members")
     private int maxMembersCount;
 
     private int membersCount;
+
+    private String chatLink;
 
     private String imageUrl;
 

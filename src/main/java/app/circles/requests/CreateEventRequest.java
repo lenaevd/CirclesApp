@@ -7,8 +7,7 @@ public class CreateEventRequest {
     public String name;
     public String description;
     public String timeAndPlaceInfo;
-    public String city;
-    public boolean isActive;
+    public String chatLink;
     public int maxMembersCount;
     public String imageUrl;
     public UUID organizerId;

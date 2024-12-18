@@ -55,12 +55,11 @@
             <column name="description" type="text">
                 <constraints nullable="true"/>
             </column>
-            <column name="time_and_place_info" type="varchar(100)">
+            <column name="time_and_place_info" type="text">
                 <constraints nullable="true"/>
             </column>
-
-            <column name="city" type="varchar(100)">
-                <constraints nullable="false"/>
+            <column name="chat_link" type="text">
+                <constraints nullable="true"/>
             </column>
             <column name="is_active" type="boolean">
                 <constraints nullable="false"/>

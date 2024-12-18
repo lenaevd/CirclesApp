@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,4 +34,5 @@ public class EditUserRequest {
     //public Role role;
 
     public Gender gender;
+    public List<String> interestsNames;
 }

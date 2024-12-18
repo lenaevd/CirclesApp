@@ -60,6 +60,14 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "user_interests",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id")
+    )
+    private List<Type> interests = new ArrayList<>();
+
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
     private List<Event> events = new ArrayList<>();
 
