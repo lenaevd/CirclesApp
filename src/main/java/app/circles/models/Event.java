@@ -42,6 +42,7 @@ public class Event {
 
     private String chatLink;
 
+    @Column(columnDefinition = "VARCHAR(10000000)")
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

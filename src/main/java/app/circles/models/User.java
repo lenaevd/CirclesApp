@@ -51,6 +51,7 @@ public class User implements UserDetails {
 
     private boolean isActive;
 
+    @Column(columnDefinition = "VARCHAR(10000000)")
     private String imageUrl;
 
     private String login;
