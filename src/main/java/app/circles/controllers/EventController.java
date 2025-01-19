@@ -3,6 +3,7 @@ package app.circles.controllers;
 import app.circles.mappers.CreateEventReqToEvent;
 import app.circles.models.Event;
 import app.circles.models.Type;
+import app.circles.requests.ChangeImageRequest;
 import app.circles.requests.CreateEventRequest;
 import app.circles.requests.GetEventsByTypeRequest;
 import app.circles.responses.GetEventResponse;
@@ -72,6 +73,17 @@ public class EventController {
     @PatchMapping("/changeActive")
     public ResponseEntity<Void> changeActive(@RequestParam UUID eventId, @RequestParam boolean isActive) {
         eventService.changeActive(eventId, isActive);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    /**
+     * поменять image для ивента
+     * @param eventId id ивента
+     * @param image base64 format
+     */
+    @PatchMapping("/changeImage")
+    public ResponseEntity<Void> changeImage(@RequestParam UUID eventId, @RequestBody ChangeImageRequest request) {
+        eventService.changeImage(eventId, request.imageUrl);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

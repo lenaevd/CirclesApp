@@ -1,6 +1,7 @@
 package app.circles.services;
 
 import app.circles.mappers.UserToGetUserResponseMapper;
+import app.circles.models.Event;
 import app.circles.models.Type;
 import app.circles.models.User;
 import app.circles.repos.UserRepository;
@@ -87,4 +88,12 @@ public class UserService {
         return response;
     }
 
+    public void changeImage(UUID userId, String image) {
+        Optional<User> userOptional = userRepo.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setImageUrl(image);
+            userRepo.save(user);
+        }
+    }
 }

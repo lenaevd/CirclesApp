@@ -2,6 +2,7 @@ package app.circles.controllers;
 
 import app.circles.models.Type;
 import app.circles.models.User;
+import app.circles.requests.ChangeImageRequest;
 import app.circles.requests.EditUserRequest;
 import app.circles.responses.GetUserResponse;
 import app.circles.services.TypeService;
@@ -66,5 +67,11 @@ public class UserController {
         } else {
             return ResponseEntity.ok(response);
         }
+    }
+
+    @PatchMapping("/changeImage")
+    public ResponseEntity<Void> changeImage(@RequestParam UUID userId, @RequestBody ChangeImageRequest request) {
+        userService.changeImage(userId, request.imageUrl);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

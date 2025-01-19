@@ -46,6 +46,15 @@ public class EventService {
         }
     }
 
+    public void changeImage(UUID eventId, String image) {
+        Optional<Event> eventOptional = eventRepo.findById(eventId);
+        if (eventOptional.isPresent()) {
+            Event event = eventOptional.get();
+            event.setImageUrl(image);
+            eventRepo.save(event);
+        }
+    }
+
     public boolean createEvent(Event event, List<Type> types, UUID organizerId) {
         Optional<User> org = userRepo.findById(organizerId);
         if (org.isPresent()) {
