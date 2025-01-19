@@ -39,7 +39,7 @@ public class AuthenticationService {
                 .city("")
                 .bio("")
                 .login(request.getLogin())
-                .dateOfBirth(LocalDate.of(2000, 01, 01))
+                .dateOfBirth(null)
                 .gender(Gender.Neutral)
                 .isActive(true)
                 .imageUrl("")
