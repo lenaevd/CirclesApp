@@ -7,9 +7,11 @@ import app.circles.models.User;
 import app.circles.repos.EventRepository;
 import app.circles.repos.RequestRepository;
 import app.circles.repos.UserRepository;
+import app.circles.responses.GetRequestResponce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -62,8 +64,18 @@ public class RequestService {
         }
     }
 
-    public List<Request> getRequests(UUID eventId) {
-        return requestRepo.findByEventIdAndIsAccepted(eventId, false);
+    public List<GetRequestResponce> getRequests(UUID eventId) {
+        List<Request> requests = requestRepo.findByEventIdAndIsAccepted(eventId, false);
+        List<GetRequestResponce> list = new ArrayList<>();
+        for (Request req: requests) {
+            Optional<User> user = userRepo.findById(req.getUserId());
+            String imageUrl = user.get().getImageUrl();
+            String name = user.get().getName();
+            GetRequestResponce responce = new GetRequestResponce(req.getId(), req.getEventId(), req.getUserId(), req.isAccepted(),
+                    imageUrl, name);
+            list.add(responce);
+        }
+        return list;
     }
 
     public RequestStatus checkStatus(UUID eventId, UUID userId) {

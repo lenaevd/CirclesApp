@@ -3,6 +3,7 @@ package app.circles.controllers;
 import app.circles.enums.RequestStatus;
 import app.circles.models.Request;
 import app.circles.requests.CreateReqRequest;
+import app.circles.responses.GetRequestResponce;
 import app.circles.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,8 +77,8 @@ public class RequestController {
      * @return
      */
     @GetMapping("/get")
-    public ResponseEntity<List<Request>> getRequestsByEvent(@RequestParam UUID eventId) {
-        List<Request> requests = requestService.getRequests(eventId);
+    public ResponseEntity<List<GetRequestResponce>> getRequestsByEvent(@RequestParam UUID eventId) {
+        List<GetRequestResponce> requests = requestService.getRequests(eventId);
         return ResponseEntity.ok(requests);
     }
 
