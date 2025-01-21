@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import java.util.UUID;
 
 @AllArgsConstructor
-public class GetRequestResponce {
+public class GetRequestResponse {
     public Integer id;
     public UUID eventId;
     public UUID userId;

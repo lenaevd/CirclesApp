@@ -7,7 +7,7 @@ import app.circles.models.User;
 import app.circles.repos.EventRepository;
 import app.circles.repos.RequestRepository;
 import app.circles.repos.UserRepository;
-import app.circles.responses.GetRequestResponce;
+import app.circles.responses.GetRequestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,16 +64,16 @@ public class RequestService {
         }
     }
 
-    public List<GetRequestResponce> getRequests(UUID eventId) {
+    public List<GetRequestResponse> getRequests(UUID eventId) {
         List<Request> requests = requestRepo.findByEventIdAndIsAccepted(eventId, false);
-        List<GetRequestResponce> list = new ArrayList<>();
+        List<GetRequestResponse> list = new ArrayList<>();
         for (Request req: requests) {
             Optional<User> user = userRepo.findById(req.getUserId());
             String imageUrl = user.get().getImageUrl();
             String name = user.get().getName();
-            GetRequestResponce responce = new GetRequestResponce(req.getId(), req.getEventId(), req.getUserId(), req.isAccepted(),
+            GetRequestResponse response = new GetRequestResponse(req.getId(), req.getEventId(), req.getUserId(), req.isAccepted(),
                     imageUrl, name);
-            list.add(responce);
+            list.add(response);
         }
         return list;
     }
