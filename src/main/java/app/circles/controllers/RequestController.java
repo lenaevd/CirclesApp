@@ -86,9 +86,10 @@ public class RequestController {
      *
      * @param eventId
      * @param userId
-     * @return NO_REQUEST - если такой заявки нет в БД, т.е. либо никогда не создавалась, либо отклонена
-     * REVIEWING - если заявка есть, но еще на рассмотрении
-     * ACCEPTED - если заявка одобрена
+     * @return NO_REQUEST - такой заявки нет
+     * REVIEWING - заявка  на рассмотрении
+     * ACCEPTED - заявка одобрена
+     * REJECTED - заявка отклонена
      */
     @GetMapping("/status")
     public ResponseEntity<RequestStatus> checkRequestStatus(@RequestParam UUID eventId, @RequestParam UUID userId) {

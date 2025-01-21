@@ -1,5 +1,6 @@
 package app.circles.models;
 
+import app.circles.enums.RequestStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +19,11 @@ public class Request {
     private Integer id;
     private UUID eventId;
     private UUID userId;
-    private boolean isAccepted;
+    private RequestStatus status;
 
-    public Request(UUID eventId, UUID userId, boolean isAccepted) {
+    public Request(UUID eventId, UUID userId) {
         this.eventId = eventId;
         this.userId = userId;
-        this.isAccepted = isAccepted;
+        this.status = RequestStatus.REVIEWING;
     }
 }

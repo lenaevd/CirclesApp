@@ -33,7 +33,7 @@ public class RequestService {
         Optional<User> user = userRepo.findById(userId);
         Optional<Event> event = eventRepo.findById(eventId);
         if (user.isPresent() && event.isPresent()) {
-            Request request = new Request(eventId, userId, false);
+            Request request = new Request(eventId, userId);
             requestRepo.save(request);
             return true;
         } else {
@@ -46,7 +46,7 @@ public class RequestService {
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
             addUserEvent(request.getUserId(), request.getEventId());
-            request.setAccepted(true);
+            request.setStatus(RequestStatus.ACCEPTED);
             requestRepo.save(request);
             return true;
         } else {
@@ -57,7 +57,9 @@ public class RequestService {
     public boolean rejectRequest(Integer requestId) {
         Optional<Request> requestOptional = requestRepo.findById(requestId);
         if (requestOptional.isPresent()) {
-            requestRepo.delete(requestOptional.get());
+            Request request = requestOptional.get();
+            request.setStatus(RequestStatus.REJECTED);
+            requestRepo.save(request);
             return true;
         } else {
             return false;
@@ -65,13 +67,13 @@ public class RequestService {
     }
 
     public List<GetRequestResponse> getRequests(UUID eventId) {
-        List<Request> requests = requestRepo.findByEventIdAndIsAccepted(eventId, false);
+        List<Request> requests = requestRepo.findByEventIdAndStatus(eventId, RequestStatus.REVIEWING);
         List<GetRequestResponse> list = new ArrayList<>();
         for (Request req: requests) {
             Optional<User> user = userRepo.findById(req.getUserId());
             String imageUrl = user.get().getImageUrl();
             String name = user.get().getName();
-            GetRequestResponse response = new GetRequestResponse(req.getId(), req.getEventId(), req.getUserId(), req.isAccepted(),
+            GetRequestResponse response = new GetRequestResponse(req.getId(), req.getEventId(), req.getUserId(), req.getStatus(),
                     imageUrl, name);
             list.add(response);
         }
@@ -83,11 +85,7 @@ public class RequestService {
         if (requestOptional.isEmpty()) {
             return RequestStatus.NO_REQUEST;
         } else {
-            if (requestOptional.get().isAccepted()) {
-                return RequestStatus.ACCEPTED;
-            } else {
-                return RequestStatus.REVIEWING;
-            }
+            return requestOptional.get().getStatus();
         }
     }
 
